@@ -94,3 +94,16 @@ void Tcp::send(const char* payload, int size)
         payload += len;
     }
 }
+
+std::string Tcp::recv()
+{
+    std::array<char, buffer_size> buf;
+    std::string result;
+    int len;
+    while ((len = ::recv(socket, buf.data(), buf.size(), 0)) > 0)
+    {
+        result.append(buf.data(), len);
+    }
+
+    return result;
+}

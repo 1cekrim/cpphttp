@@ -22,3 +22,10 @@ TEST_CASE("send")
     t.connect("github.com", 80);
     t.send("GET http://github.com");
 }
+
+TEST_CASE("send_and_recv")
+{
+    Tcp t;
+    t.connect("github.com", 80);
+    t.send("GET http://github.com\n");
+}
