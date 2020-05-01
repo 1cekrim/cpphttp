@@ -107,3 +107,13 @@ std::string Tcp::recv()
 
     return result;
 }
+
+void Tcp::disconnect()
+{
+    if (socket != INVALID_SOCKET)
+    {
+        ::shutdown(socket, SD_SEND);
+        closesocket(socket);
+        socket = INVALID_SOCKET;
+    }
+}
