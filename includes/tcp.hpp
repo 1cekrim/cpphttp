@@ -29,11 +29,13 @@ class Tcp
     void connect(const std::string& host, const int port);
     void send(const std::string& payload);
     void send(const char* payload, int size);
+    std::string recv();
     RAIIAddrinfo dns_resolve(const std::string& host, const int port) const;
 
  private:
     int port;
     SOCKET socket = INVALID_SOCKET;
+    static constexpr int buffer_size = 1024;
 };
 }  // namespace cpphttp
 #endif  // CPPHTTP_SOCKET_H
