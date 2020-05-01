@@ -27,6 +27,7 @@ class Tcp
     Tcp();
     void init();
     void connect(const std::string& host, const int port);
+    void disconnect();
     void send(const std::string& payload);
     void send(const char* payload, int size);
     std::string recv();
