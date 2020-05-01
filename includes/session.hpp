@@ -13,6 +13,13 @@ class Session
  private:
     Headers headers;
 };
+
+struct Response
+{
+    Response(const std::string_view& text, int status_cost);
+    std::string text;
+    int status_code;
+};
 }  // namespace cpphttp
 
 #endif  // CPPHTTP_SESSION_HPP
