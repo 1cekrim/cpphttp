@@ -9,3 +9,10 @@ TEST_CASE("session")
 {
     Session sess;
 }
+
+TEST_CASE("get")
+{
+    Session sess;
+    auto rep = sess.get("github.com", { { "Host", "github.com" } });
+    std::cout << "rep.text: " << rep.text;
+}
