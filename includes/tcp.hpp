@@ -27,6 +27,8 @@ class Tcp
     Tcp();
     void init();
     void connect(const std::string& host, const int port);
+    void send(const std::string& payload);
+    void send(const char* payload, int size);
     RAIIAddrinfo dns_resolve(const std::string& host, const int port) const;
 
  private:

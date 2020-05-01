@@ -71,3 +71,26 @@ Tcp::RAIIAddrinfo Tcp::dns_resolve(const std::string& host,
 
     return { result };
 }
+
+void Tcp::send(const std::string& payload)
+{
+    send(payload.c_str(), payload.size());
+}
+
+void Tcp::send(const char* payload, int size)
+{
+    if (socket == INVALID_SOCKET)
+    {
+        throw std::runtime_error("invalid socket");
+    }
+    while (size > 0)
+    {
+        auto len = ::send(socket, payload, size, 0);
+        if (len < 0)
+        {
+            // TODO: exception handling when len < 0
+        }
+        size -= len;
+        payload += len;
+    }
+}
