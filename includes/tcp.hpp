@@ -12,9 +12,6 @@ namespace cpphttp
 class Tcp
 {
  public:
-    Tcp();
-    void init();
-    void connect(const std::string& host, const int port);
     struct RAIIAddrinfo
     {
         addrinfo* value;
@@ -27,11 +24,14 @@ class Tcp
             freeaddrinfo(value);
         }
     };
+    Tcp();
+    void init();
+    void connect(const std::string& host, const int port);
     RAIIAddrinfo dns_resolve(const std::string& host, const int port) const;
 
  private:
     int port;
-    SOCKET socket;
+    SOCKET socket = INVALID_SOCKET;
 };
 }  // namespace cpphttp
 #endif  // CPPHTTP_SOCKET_H
