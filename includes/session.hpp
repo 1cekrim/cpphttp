@@ -2,6 +2,7 @@
 #define CPPHTTP_SESSION_HPP
 
 #include <headers.hpp>
+#include <tcp.hpp>
 
 namespace cpphttp
 {
@@ -9,9 +10,12 @@ class Session
 {
  public:
     Session();
+    void open();
+    void close();
 
  private:
     Headers headers;
+    Tcp tcp;
 };
 
 struct Response
