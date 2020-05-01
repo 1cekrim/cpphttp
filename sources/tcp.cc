@@ -23,12 +23,29 @@ void Tcp::init()
 
 void Tcp::connect(const std::string& host, const int port)
 {
-    if (socket == INVALID_SOCKET)
+    if (socket != INVALID_SOCKET)
     {
-        throw std::runtime_error("Init first.");
+        throw std::runtime_error("already connected");
     }
 
     // TODO: implement connect
+    auto info = dns_resolve(host, port);
+    assert(info.value);
+
+    for (auto ai = info.value; ai; ai = ai->ai_next)
+    {
+        socket = ::socket(ai->ai_family, ai->ai_socktype, ai->ai_protocol);
+        if (socket == INVALID_SOCKET)
+        {
+            continue;
+        }
+        if (::connect(socket, ai->ai_addr, ai->ai_addrlen) == SOCKET_ERROR)
+        {
+            closesocket(socket);
+            continue;
+        }
+        return;
+    }
 }
 
 Tcp::RAIIAddrinfo Tcp::dns_resolve(const std::string& host,
