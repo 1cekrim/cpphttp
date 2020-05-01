@@ -38,7 +38,7 @@ BreakAfterJavaFieldAnnotations: 'false'
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom
 BreakBeforeTernaryOperators: 'true'
-BreakConstructorInitializers: BeforeComma
+BreakConstructorInitializersBeforeComma: 'false'
 BreakStringLiterals: 'true'
 ColumnLimit: '80'
 CompactNamespaces: 'false'
