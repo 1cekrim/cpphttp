@@ -20,4 +20,48 @@ std::ostream& operator<<(std::ostream& os, const Header& header)
     os << header.to_string();
     return os;
 }
+
+Headers::Headers() : Headers({})
+{
+    // Do nothing
+}
+
+Headers::Headers(std::initializer_list<Header> il) : headers(il)
+{
+    // Do nothing
+}
+
+void Headers::set_method(Method m)
+{
+    switch (m)
+    {
+        case Method::GET:
+            method = "GET";
+            break;
+        case Method::POST:
+            method = "POST";
+            break;
+    }
+}
+
+void Headers::set_url(const std::string_view& url)
+{
+    // TODO: valid url?
+    this->url = url;
+}
+
+const std::vector<Header>& Headers::get_headers() const
+{
+    return headers;
+}
+
+std::ostream& operator<<(std::ostream& os, const Headers& headers)
+{
+    os << headers.method << ' ' << headers.url << " HTTP/1.1\n";
+    for (const auto& header : headers.get_headers())
+    {
+        os << header;
+    }
+    return os;
+}
 }  // namespace cpphttp
