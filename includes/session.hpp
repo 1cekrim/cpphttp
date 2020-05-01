@@ -6,23 +6,26 @@
 
 namespace cpphttp
 {
+struct Response
+{
+    Response(const std::string_view& text, int status_cost);
+    std::string text;
+    int status_code;
+    // TODO: response header
+};
+
 class Session
 {
  public:
     Session();
     void open();
     void close();
+    // TODO: cookie
+    Response get(const std::string_view& url, const Headers& headers);
 
  private:
     Headers headers;
     Tcp tcp;
-};
-
-struct Response
-{
-    Response(const std::string_view& text, int status_cost);
-    std::string text;
-    int status_code;
 };
 }  // namespace cpphttp
 
