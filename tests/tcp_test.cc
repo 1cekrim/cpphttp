@@ -15,3 +15,10 @@ TEST_CASE("connect")
     Tcp t;
     CHECK_NOTHROW(t.connect("github.com", 80));
 }
+
+TEST_CASE("send")
+{
+    Tcp t;
+    t.connect("github.com", 80);
+    t.send("GET http://github.com");
+}
