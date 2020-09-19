@@ -9,7 +9,7 @@ namespace cpphttp
 struct Response
 {
     Response(const std::string_view& text, int status_cost);
-    std::string text;
+    std::string raw;
     int status_code;
     // TODO: response header
 };

@@ -36,7 +36,7 @@ Response Session::get(const std::string_view& url, const Headers& headers)
 }
 
 Response::Response(const std::string_view& text, int status_code)
-    : text(text),
+    : raw(text),
       status_code(status_code)
 {
     // Do nothing

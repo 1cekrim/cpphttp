@@ -14,5 +14,5 @@ TEST_CASE("get")
 {
     Session sess;
     auto rep = sess.get("github.com", { { "Host", "github.com" } });
-    std::cout << "rep.text: " << rep.text;
+    std::cout << "rep.raw: " << rep.raw;
 }
