@@ -13,6 +13,6 @@ TEST_CASE("session")
 TEST_CASE("get")
 {
     Session sess;
-    auto rep = sess.get("github.com", { { "Host", "github.com" } });
+    auto rep = sess.get("http://gaia.cs.umass.edu/wireshark-labs/HTTP-wireshark-file1.html", {});
     std::cout << "rep.raw: " << rep.raw;
 }

@@ -1,9 +1,15 @@
+#include <iostream>
 #include <session.hpp>
 #include <sstream>
 
 namespace cpphttp
 {
-Session::Session() : headers(), tcp()
+Session::Session()
+    : headers({ { "User-Agent", "python-requests/2.23.0" },
+                { "Accept-Encoding", "gzip, deflate" },
+                { "Accept", "*/*" },
+                { "Connection", "keep-alive" } }),
+      tcp()
 {
     // Do nothing
 }
@@ -18,13 +24,43 @@ void Session::close()
     // TODO: close
 }
 
-Response Session::get(const std::string_view& url, const Headers& headers)
+Response Session::get(std::string_view url, const Headers& headers)
 {
-    // TODO: merge this->headers and headers
+    std::string host;
     // TODO: https
-    tcp.connect(std::string(url), 80);
+    if (url.substr(0, 7) == "http://")
+    {
+        int i;
+        for (i = 7; i < url.length() && url[i] != '/'; ++i)
+        {
+            host.push_back(url[i]);
+        }
+        url.remove_prefix(i);
+        std::cout << url;
+    }
+    else if (url.substr(0, 5) == "http:")
+    {
+        int i;
+        for (i = 5; i < url.length() && url[i] != '/'; ++i)
+        {
+            host.push_back(url[i]);
+        }
+    }
+    else
+    {
+        // TODO: NotSupportedProtocolException
+    }
+
+    Headers httpHeaders({ { "Host", host } });
+    httpHeaders << this->headers << headers;
+
+    httpHeaders.set_url(url);
+    httpHeaders.set_method(Method::GET);
+
     std::stringstream ss;
-    ss << this->headers;
+    ss << httpHeaders << "\r\n";
+
+    tcp.connect(host, 80);
     tcp.send(ss.str());
     std::string rep = tcp.recv();
     tcp.disconnect();

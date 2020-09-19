@@ -21,7 +21,7 @@ class Session
     void open();
     void close();
     // TODO: cookie
-    Response get(const std::string_view& url, const Headers& headers);
+    Response get(std::string_view url, const Headers& headers);
 
  private:
     Headers headers;
