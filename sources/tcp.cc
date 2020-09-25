@@ -6,7 +6,7 @@
 
 using namespace cpphttp;
 
-Tcp::Tcp()
+Tcp::Tcp() : port {}
 {
     WSADATA wsa_data;
     WSAStartup(MAKEWORD(2, 2), &wsa_data);
