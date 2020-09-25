@@ -18,6 +18,7 @@ class Session
 {
  public:
     Session();
+    Session(const Headers& headers);
     void open();
     void close();
     // TODO: cookie

@@ -14,6 +14,11 @@ Session::Session()
     // Do nothing
 }
 
+Session::Session(const Headers& headers) : headers(headers), tcp()
+{
+    // Do nothing
+}
+
 void Session::open()
 {
     // TODO: open
